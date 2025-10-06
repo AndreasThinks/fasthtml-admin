@@ -105,7 +105,8 @@ def auth_before(req, sess, user_manager, login_url='/login', public_paths=None,
             return RedirectResponse(maintenance_url, status_code=303)
     
     # Skip authentication for public routes
-    if path in public_paths or any(path.startswith(p) for p in public_paths if p.endswith('/')):
+    if (path in public_paths
+            or any(path.startswith(p) for p in public_paths if p.endswith('/') and p != '/')):
         return
     
     # Check if user is authenticated
